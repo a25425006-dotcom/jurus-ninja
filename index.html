@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Ninja 2D</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+    }
+
+    #game {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #ninja, #musuh {
+      position: absolute;
+      bottom: 0;
+      width: 80px;
+      transition: transform 0.2s;
+    }
+
+    #ninja {
+      left: 50px;
+    }
+
+    #musuh {
+      right: 100px;
+    }
+
+    #controls {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    button {
+      font-size: 24px;
+      padding: 10px;
+      margin: 5px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button:active {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <img id="background" src="img/bg.jpg" alt="Background" />
+    <img id="ninja" src="img/ninja.png" alt="Ninja" />
+    <img id="musuh" src="img/musuh.png" alt="Musuh" />
+  </div>
+
+  <div id="controls">
+    <button id="left">◀️</button>
+    <button id="right">▶️</button>
+    <button id="jump">⤴️</button>
+    <button id="attack1">⚔️</button>
+    <button id="attack2">🗡️</button>
+    <button id="attack3">💥</button>
+  </div>
+
+  <script>
+    const ninja = document.getElementById("ninja");
+    let ninjaX = 50;
+    let isJumping = false;
+
+    // Gerak kiri dan kanan
+    document.getElementById("left").onmousedown = () => move(-10);
+    document.getElementById("right").onmousedown = () => move(10);
+
+    function move(dx) {
+      ninjaX += dx;
+      if (ninjaX < 0) ninjaX = 0;
+      if (ninjaX > window.innerWidth - 80) ninjaX = window.innerWidth - 80;
+      ninja.style.left = ninjaX + "px";
+    }
+
+    // Lompat
+    document.getElementById("jump").onclick = () => {
+      if (isJumping) return;
+      isJumping = true;
+      ninja.style.transform = "translateY(-100px)";
+      setTimeout(() => {
+        ninja.style.transform = "translateY(0)";
+        isJumping = false;
+      }, 500);
+    };
+
+    // Serangan
+    document.getElementById("attack1").onclick = () => {
+      alert("⚔️ Skill 1: Tebasan ke depan!");
+    };
+    document.getElementById("attack2").onclick = () => {
+      alert("🗡️ Skill 2: Tebas samping!");
+    };
+    document.getElementById("attack3").onclick = () => {
+      alert("💥 Skill 3: Serangan lompat mematikan!");
+    };
+  </script>
+</body>
+</html>
